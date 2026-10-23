@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.rezka.console">
+
+    <!-- плавающее окно поверх всех приложений: на 4.x выдается при установке без доп.подтверждений -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <!-- БЕЗ INTERNET приложение не может создавать сетевые сокеты вообще:
+         из консоли не работали ssh/dbclient (socket() -> EPERM, "connect failed") -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- запись в /mnt/sdcard обычным юзером (gid sdcard_rw) -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- БЕЗ этого планшет включает compatibility mode (compatible=true, масштаб 2.25):
+         метрики экрана внутри приложения врут (455x320), и окно 300x380dp превращается
+         в гиганта 1350x1710px, вылезающего за экран. anyDensity выключает режим. -->
+    <supports-screens
+        android:anyDensity="true"
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:normalScreens="true"
+        android:largeScreens="true"
+        android:xlargeScreens="true" />
+
+    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="17" />
+
+    <application
+        android:label="@string/app_name"
+        android:icon="@drawable/logo">
+
+        <activity android:name=".MainActivity" android:exported="true"
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:configChanges="orientation|screenSize|keyboardHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service android:name=".ConsoleService" android:exported="false" />
+    </application>
+</manifest>

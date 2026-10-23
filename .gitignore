@@ -1,0 +1,25 @@
+# артефакты сборки
+*.apk
+*.idsig
+compiled.flata
+app.unsigned.apk
+app.aligned.apk
+
+# промежуточное
+gen/
+obj/
+dex/
+lib/
+*.class
+
+# тулчейн и ключи
+android/
+*.jks
+*.keystore
+
+# прочее
+.DS_Store
+*.log
+
+# доска задач — локальная, с путями этой машины
+.board/
